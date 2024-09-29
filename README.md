@@ -1,52 +1,4 @@
-> HelloWorld Proto
-
-```protobuf
-syntax = "proto3";
-
-option java_package = "com.adarsh";
-option java_multiple_files = true;
-
-message HelloWorldRequest {
-  string message = 1;
-}
-
-message HelloWorldResponse {
-  string message = 1;
-}
-
-service HelloWorldService {
-  rpc hello(HelloWorldRequest) returns (HelloWorldResponse);
-}
-```
-
-> HealthCheck Proto
-
-```protobuf
-syntax = "proto3";
-
-option java_package = "com.adarsh";
-option java_multiple_files = true;
-
-message HealthCheckRequest {
-  string service = 1;
-}
-
-message HealthCheckResponse {
-  enum ServingStatus {
-    UNKNOWN = 0;
-    SERVING = 1;
-    NOT_SERVING = 2;
-    SERVICE_UNKNOWN = 3;  // Used only by the Watch method.
-  }
-  ServingStatus status = 1;
-}
-
-service Health {
-  rpc Check(HealthCheckRequest) returns (HealthCheckResponse);
-
-  rpc Watch(HealthCheckRequest) returns (stream HealthCheckResponse);
-}
-```
+> #### Docker Hub Link - [https://hub.docker.com/r/iadarshkr/spring-grpc](https://hub.docker.com/r/iadarshkr/spring-grpc)
 
 > ### POM file for starting with gRPC in Spring Boot
 
@@ -156,6 +108,10 @@ grpcurl --plaintext -d '{"message": "Hello "}' localhost:9090 HelloWorldService/
 #### `Step 3:` Tag the image and push it to Docker Hub or Artifact Registry
 
 ```shell
+docker tag spring-grpc:v1 iadarshkr/spring-grpc:v1
+
+docker push iadarshkr/spring-grpc:v1
+
 docker tag spring-grpc:v1 asia.gcr.io/devops-hq/spring-grpc/spring-grpc:v1
 
 gcloud config set core/project devops-hq
